@@ -7,21 +7,26 @@ import {
   faSignIn,
   faPlus,
   faEllipsisVertical,
-  faCircle,
   faCircleQuestion,
   faKeyboard,
   faEarthAsia,
+  faCloudUpload,
+  faMessage,
+  faUser,
+  faGear,
 } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import images from '~/assets/images';
-import Tippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import HeadlessTippy from '@tippyjs/react/headless';
 import styles from './Header.module.scss';
 import AccountsItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
-
+import 'tippy.js/dist/tippy.css';
+import { faBitcoin } from '@fortawesome/free-brands-svg-icons';
 const cx = classNames.bind(styles);
 const MENU_ITEMS = [
   {
@@ -68,14 +73,39 @@ function Header() {
         break;
     }
   };
+  const currentUser = true;
 
+  const userMenu = [
+    {
+      icon: <FontAwesomeIcon icon={faUser} />,
+      title: 'Xem hồ sơ',
+      to: '/@hoa',
+    },
+    {
+      icon: <FontAwesomeIcon icon={faBitcoin} />,
+      title: 'Nhận Xu',
+      to: '/coins',
+    },
+    {
+      icon: <FontAwesomeIcon icon={faGear} />,
+      title: 'Cài đặt',
+      to: '/setting',
+    },
+    ...MENU_ITEMS,
+    {
+      icon: <FontAwesomeIcon icon={faSignIn} />,
+      title: 'Đăng xuất',
+      to: './logout',
+      separate: true,
+    },
+  ];
   return (
     <header className={cx('wrapper')}>
       <div className={cx('inner')}>
         <div className={cx('logo')}>
           <img src={images.logo} alt="Tiktok" />
         </div>
-        <Tippy
+        <HeadlessTippy
           visible={searchResult.length > 0}
           interactive={true}
           render={(attrs) => (
@@ -100,20 +130,47 @@ function Header() {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
           </div>
-        </Tippy>
+        </HeadlessTippy>
 
         <div className={cx('actions')}>
-          <Button outline text leftIcon={<FontAwesomeIcon icon={faPlus} />}>
-            Upload
-          </Button>
-          <Button primary leftIcon={<FontAwesomeIcon icon={faSignIn} />}>
-            Log in
-          </Button>
-          <Menu items={MENU_ITEMS} onchange={handleMenuchange}>
-            <button className={cx('more-btn')}>
-              <FontAwesomeIcon icon={faEllipsisVertical} />
-            </button>
-          </Menu>
+          {currentUser ? (
+            <>
+              <Tippy content="Upload video" delay={200}>
+                <button className={cx('action-btn')}>
+                  <FontAwesomeIcon icon={faCloudUpload} />
+                </button>
+              </Tippy>
+              <button className={cx('action-btn')}>
+                <FontAwesomeIcon icon={faMessage} />
+              </button>
+            </>
+          ) : (
+            <>
+              <Button outline text leftIcon={<FontAwesomeIcon icon={faPlus} />}>
+                Upload
+              </Button>
+              <Button primary leftIcon={<FontAwesomeIcon icon={faSignIn} />}>
+                Log in
+              </Button>
+            </>
+          )}
+          <>
+            <Menu items={currentUser ? userMenu : MENU_ITEMS} onchange={handleMenuchange}>
+              {currentUser ? (
+                <img
+                  className={cx('user-avatar')}
+                  src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/bad679d6d45b98f5fdafae269fac1141~c5_100x100.jpeg?x-expires=1688828400&x-signature=Scx4pQ%2Fapua5MvSE7IuQAj2z1ZU%3D"
+                  alt="dd"
+                />
+              ) : (
+                <>
+                  <button className={cx('more-btn')}>
+                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                  </button>
+                </>
+              )}
+            </Menu>
+          </>
         </div>
       </div>
     </header>

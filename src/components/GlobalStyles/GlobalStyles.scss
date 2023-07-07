@@ -33,3 +33,20 @@ a[href] {
   text-decoration: none;
   color: var(--text-color);
 }
+
+body {
+  .tippy-box {
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+    background-color: rgba(84, 84, 84, 0.92);
+    color: rgb(255, 255, 255);
+  }
+  .tippy-content{
+    padding: 8px 9px;
+  }
+  .tippy-arrow {
+    color: rgba(84, 84, 84, 0.92);
+  }
+}
