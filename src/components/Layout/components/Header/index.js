@@ -12,7 +12,9 @@ import {
 import { faBitcoin } from '@fortawesome/free-brands-svg-icons';
 import { UploadIcon, MessageIcon, InboxIcon } from '~/components/Icons';
 import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 
+import routesConfig from '~/config/routes';
 import images from '~/assets/images';
 import Tippy from '@tippyjs/react';
 import styles from './Header.module.scss';
@@ -21,6 +23,7 @@ import Menu from '~/components/Popper/Menu';
 import Image from '~/components/Image';
 import Search from '../Search';
 import 'tippy.js/dist/tippy.css';
+
 const cx = classNames.bind(styles);
 const MENU_ITEMS = [
   {
@@ -89,9 +92,9 @@ function Header() {
   return (
     <header className={cx('wrapper')}>
       <div className={cx('inner')}>
-        <div className={cx('logo')}>
+        <Link to={routesConfig.home} className={cx('logo')}>
           <img src={images.logo} alt="Tiktok" />
-        </div>
+        </Link>
         <Search />
 
         <div className={cx('actions')}>
