@@ -10,6 +10,7 @@
   //Default Layout
   --default-layout-header-height: 60px;
   --default-layout-header-width: 1150px;
+  --default-layout-horizontal-spacer: 24px;
 }
 html {
   font-size: 62.5%;
@@ -40,12 +41,6 @@ html {
   src: url('/assets/fonts/sofiapro-bold.woff');
   font-weight: 700;
 }
-body {
-  font-family: var(--font-family);
-  font-size: 1.6rem;
-  line-height: 1.5;
-  text-rendering: optimizeSpeed;
-}
 button,
 input,
 [tabindex] {
@@ -58,6 +53,12 @@ a[href] {
 }
 
 body {
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+  overflow-y: overlay;
+
   .tippy-box {
     border-radius: 6px;
     font-weight: 600;
@@ -72,4 +73,18 @@ body {
   .tippy-arrow {
     color: rgba(84, 84, 84, 0.92);
   }
+}
+
+//Scrollbar css
+html *::-webkit-scrollbar {
+  border-radius: 0;
+  width: 8px;
+}
+html *::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(12, 13, 23, 0.103);
+}
+html *::-webkit-scrollbar-track {
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0);
 }
