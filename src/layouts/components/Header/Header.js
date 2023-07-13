@@ -10,18 +10,18 @@ import {
   faGear,
 } from '@fortawesome/free-solid-svg-icons';
 import { faBitcoin } from '@fortawesome/free-brands-svg-icons';
-import { UploadIcon, MessageIcon, InboxIcon } from '~/components/Icons';
+import { UploadIcon, MessageIcon, InboxIcon } from '~/components/Icons/Icons';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
-import routesConfig from '~/config/routes';
+import config from '~/config';
 import images from '~/assets/images';
 import Tippy from '@tippyjs/react';
 import styles from './Header.module.scss';
-import Button from '~/components/Button';
-import Menu from '~/components/Popper/Menu';
-import Image from '~/components/Image';
-import Search from '../Search';
+import Button from '~/components/Button/Button';
+import Menu from '~/components/Popper/Menu/Menu';
+import Image from '~/components/Image/Image';
+import Search from '../Search/Search';
 import 'tippy.js/dist/tippy.css';
 
 const cx = classNames.bind(styles);
@@ -92,7 +92,7 @@ function Header() {
   return (
     <header className={cx('wrapper')}>
       <div className={cx('inner')}>
-        <Link to={routesConfig.home} className={cx('logo')}>
+        <Link to={config.routes.home} className={cx('logo')}>
           <img src={images.logo} alt="Tiktok" />
         </Link>
         <Search />
@@ -114,7 +114,7 @@ function Header() {
             </>
           ) : (
             <>
-              <Button outline text leftIcon={<FontAwesomeIcon icon={faPlus} />}>
+              <Button text leftIcon={<FontAwesomeIcon icon={faPlus} />}>
                 Upload
               </Button>
               <Button primary leftIcon={<FontAwesomeIcon icon={faSignIn} />}>

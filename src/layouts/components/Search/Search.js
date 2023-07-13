@@ -5,9 +5,9 @@ import classNames from 'classnames/bind';
 import HeadlessTippy from '@tippyjs/react/headless';
 import AccountsItem from '~/components/AccountItem';
 
-import * as searchServices from '~/apiServices/searchServices';
+import * as searchServices from '~/Services/searchService';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
-import { SearchIcon } from '~/components/Icons';
+import { SearchIcon } from '~/components/Icons/Icons';
 import { useDebounce } from '~/hooks';
 import styles from './Search.module.scss';
 
@@ -16,15 +16,15 @@ const cx = classNames.bind(styles);
 function Search() {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
-  const [showResult, setShowResult] = useState(true);
+  const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const debounced = useDebounce(searchValue, 700);
+  const debouncedValue = useDebounce(searchValue, 700);
 
   const inputRef = useRef();
 
   useEffect(() => {
-    if (!debounced.trim()) {
+    if (!debouncedValue.trim()) {
       setSearchResult([]);
       return;
     }
@@ -32,13 +32,13 @@ function Search() {
     const fetchApi = async () => {
       setLoading(true);
 
-      const result = await searchServices.search(debounced);
+      const result = await searchServices.search(debouncedValue);
       setSearchResult(result);
 
       setLoading(false);
     };
     fetchApi();
-  }, [debounced]);
+  }, [debouncedValue]);
 
   const handleChange = (e) => {
     const searchValue = e.target.value;
